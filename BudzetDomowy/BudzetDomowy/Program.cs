@@ -1,3 +1,4 @@
+using BudzetDomowy.ApplicationServices.API.Mappings;
 using BudzetDomowy.DataAccess;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,6 +14,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<HouseholdBudgetStorageContext>(opt => 
     opt.UseSqlServer(builder.Configuration.GetConnectionString("HouseholdBudgetDatabaseConnection")));
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddAutoMapper(typeof(ShopsProfile).Assembly);
 
 var app = builder.Build();
 
