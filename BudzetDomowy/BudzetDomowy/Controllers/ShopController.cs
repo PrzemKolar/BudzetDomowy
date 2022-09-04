@@ -15,12 +15,12 @@ namespace BudzetDomowy.Controllers
             this.ShopRepository = shopRepository;
         }
 
-        [HttpGet]
-        [Route("")]
-        public IEnumerable<Shop> GetAllShops() => this.ShopRepository.GetAll();
+        //[HttpGet]
+        //[Route("")]
+        //public IEnumerable<Shop> GetAllShops() => this.ShopRepository.GetAll();
 
-        [HttpGet]
-        [Route("{shopId}")]
-        public Shop GetAllShopById(int shopId) => this.ShopRepository.GetById(shopId);
+        //[HttpGet]
+        //[Route("{shopId}")]
+        //public Shop GetAllShopById(int shopId) => this.ShopRepository.GetById(shopId);
     }
 }
