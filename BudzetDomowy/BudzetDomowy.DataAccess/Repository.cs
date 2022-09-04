@@ -19,17 +19,17 @@ namespace BudzetDomowy.DataAccess
             entities = context.Set<T>();
         }
 
-        public IEnumerable<T> GetAll()
+        public Task<List<T>> GetAll()
         {
-            return entities.AsEnumerable();
+            return entities.ToListAsync();
         }
 
-        public T GetById(int id)
+        public Task<T> GetById(int id)
         {
-            return entities.SingleOrDefault(x => x.Id == id);
+            return entities.SingleOrDefaultAsync(x => x.Id == id);
         }
 
-        public void Insert(T entity)
+        public Task Insert(T entity)
         {
             if(entity == null)
             {
@@ -37,24 +37,24 @@ namespace BudzetDomowy.DataAccess
             }
 
             entities.Add(entity);
-            context.SaveChanges();
+            return context.SaveChangesAsync();
         }
 
-        public void Update(T entity)
+        public Task Update(T entity)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException("entity");
             }
 
-            context.SaveChanges();
+            return context.SaveChangesAsync();
         }
 
-        public void Delete(int id)
+        public Task Delete(int id)
         {
             T entity = entities.SingleOrDefault(x => x.Id == id);
             entities.Remove(entity);
-            context.SaveChanges();
+            return context.SaveChangesAsync();
         }
     }
 }
