@@ -1,6 +1,10 @@
+using BudzetDomowy.ApplicationServices.API.Domain;
 using BudzetDomowy.ApplicationServices.API.Mappings;
 using BudzetDomowy.DataAccess;
+using BudzetDomowy.DataAccess.CQRS;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,8 +17,11 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<HouseholdBudgetStorageContext>(opt => 
     opt.UseSqlServer(builder.Configuration.GetConnectionString("HouseholdBudgetDatabaseConnection")));
+builder.Services.AddMediatR(typeof(ResponseBase<>));
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddAutoMapper(typeof(ShopsProfile).Assembly);
+builder.Services.AddTransient<IQueryExecutor, QueryExecutor>();
+builder.Services.AddTransient<ICommandExecutor, CommandExecutor>();
 
 var app = builder.Build();
 
