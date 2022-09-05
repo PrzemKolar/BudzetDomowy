@@ -47,5 +47,14 @@ namespace BudzetDomowy.Controllers
             var response = await this.mediator.Send(request);
             return this.Ok(response);
         }
+
+        [HttpDelete]
+        [Route("{ShopId}")]
+        public async Task<IActionResult> DeleteShop([FromRoute] int ShopId)
+        {
+            var request = new DeleteShopRequest() { ShopId = ShopId };
+            var response = await this.mediator.Send(request);
+            return this.Ok(response);
+        }
     }
 }
