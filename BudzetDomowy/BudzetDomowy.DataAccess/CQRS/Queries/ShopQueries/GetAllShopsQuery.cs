@@ -10,9 +10,14 @@ namespace BudzetDomowy.DataAccess.CQRS.Queries.ShopQueries
 {
     public class GetAllShopsQuery : QueryBase<List<Shop>>
     {
+        public string Name { get; set; }
+
         public async override Task<List<Shop>> Execute(HouseholdBudgetStorageContext context)
         {
-            return await context.Shops.ToListAsync();
+            if (Name == null)
+                return await context.Shops.ToListAsync();
+            else
+                return await context.Shops.Where(x => x.Name == Name).ToListAsync();
         }
     }
 }

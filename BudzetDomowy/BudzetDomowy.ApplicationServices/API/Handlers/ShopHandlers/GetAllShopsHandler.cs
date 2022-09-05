@@ -19,7 +19,7 @@ namespace BudzetDomowy.ApplicationServices.API.Handlers.ShopHandlers
 
         public async Task<GetAllShopsResponse> Handle(GetAllShopsRequest request, CancellationToken cancellationToken)
         {
-            var shops = await this.queryExecutor.Execute(new GetAllShopsQuery());
+            var shops = await this.queryExecutor.Execute(new GetAllShopsQuery() {});
             var mapped = this.mapper.Map<List<Shop>>(shops);
             return new GetAllShopsResponse() { Data = mapped.ToList() };
         }
