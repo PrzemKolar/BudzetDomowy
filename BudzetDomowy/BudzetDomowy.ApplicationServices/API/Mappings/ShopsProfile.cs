@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using BudzetDomowy.ApplicationServices.API.Domain.Models;
-
+using BudzetDomowy.ApplicationServices.API.Domain.ShopRequestsResponses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +16,10 @@ namespace BudzetDomowy.ApplicationServices.API.Mappings
             this.CreateMap<DataAccess.Entities.Shop, Shop>()
                 .ForMember(x => x.Name, y => y.MapFrom(z => z.Name))
                 .ForMember(x => x.Logo, y => y.MapFrom(z => z.Logo));
-                
+
+            this.CreateMap<AddShopRequest, DataAccess.Entities.Shop>()
+                .ForMember(x => x.Name, y => y.MapFrom(z => z.Name))
+                .ForMember(x => x.Logo, y => y.MapFrom(z => z.Logo));
         }
     }
 }
