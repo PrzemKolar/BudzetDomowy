@@ -20,6 +20,11 @@ namespace BudzetDomowy.ApplicationServices.API.Mappings
             this.CreateMap<AddShopRequest, DataAccess.Entities.Shop>()
                 .ForMember(x => x.Name, y => y.MapFrom(z => z.Name))
                 .ForMember(x => x.Logo, y => y.MapFrom(z => z.Logo));
+
+            this.CreateMap<EditShopRequest, DataAccess.Entities.Shop>()
+                .ForMember(x => x.Id, y => y.MapFrom(z => z.Id))
+                .ForMember(x => x.Name, y => y.MapFrom(z => z.Name))
+                .ForMember(x => x.Logo, y => y.MapFrom(z => z.Logo));
         }
     }
 }
