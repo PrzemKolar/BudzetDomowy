@@ -23,8 +23,13 @@ namespace BudzetDomowy.Controllers
             return this.Ok(response);
         }
 
-        //[HttpGet]
-        //[Route("{shopId}")]
-        //public Shop GetAllShopById(int shopId) => this.ShopRepository.GetById(shopId);
+        [HttpGet]
+        [Route("{ShopId}")]
+        public async Task<IActionResult> GetShopById([FromRoute]int ShopId)
+        {
+            var request = new GetShopByIdRequest() { ShopId = ShopId };
+            var response = await this.mediator.Send(request);
+            return this.Ok(response);
+        }
     }
 }
