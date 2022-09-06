@@ -14,6 +14,7 @@ namespace BudzetDomowy.DataAccess.CQRS.Commands.AccountCommands
             this.Parameter.Value = 0;
             this.Parameter.Enabled = true;
             await context.Accounts.AddAsync(Parameter);
+            await context.SaveChangesAsync();
             return this.Parameter;
         }
     }

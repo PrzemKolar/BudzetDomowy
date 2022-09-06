@@ -13,7 +13,13 @@ namespace BudzetDomowy.Controllers
             this.mediator = mediator;
         }
 
-        
+        [HttpGet]
+        [Route("")]
+        public async Task<IActionResult> GetAllAcconts([FromQuery] GetAllAccountsRequest request)
+        {
+            var response = await this.mediator.Send(request);
+            return this.Ok(response);
+        }
 
         [HttpPost]
         [Route("")]
