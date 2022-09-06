@@ -19,6 +19,10 @@ namespace BudzetDomowy.ApplicationServices.API.Mappings
 
             this.CreateMap<AddAccountRequest, DataAccess.Entities.Account>()
                 .ForMember(x => x.Name, y => y.MapFrom(z => z.Name));
+
+            this.CreateMap<EditAccountRequest, DataAccess.Entities.Account>()
+                .ForMember(x => x.Id, y => y.MapFrom(z => z.Id))
+                .ForMember(x => x.Name, y => y.MapFrom(z => z.Name));
         }
     }
 }
