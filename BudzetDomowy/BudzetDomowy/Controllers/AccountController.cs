@@ -36,5 +36,13 @@ namespace BudzetDomowy.Controllers
             var response = await this.mediator.Send(request);
             return this.Ok(response);
         }
+
+        [HttpPut]
+        [Route("{AccountId}")]
+        public async Task<IActionResult> DisableAccount([FromRoute] int AccountId)
+        {
+            var response = await this.mediator.Send(new DisableAccountRequest(){ AccountId = AccountId});
+            return this.Ok(response);
+        }
     }
 }
