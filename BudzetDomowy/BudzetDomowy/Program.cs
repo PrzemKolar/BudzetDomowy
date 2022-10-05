@@ -1,7 +1,9 @@
 using BudzetDomowy.ApplicationServices.API.Domain;
 using BudzetDomowy.ApplicationServices.API.Mappings;
+using BudzetDomowy.ApplicationServices.API.Validators;
 using BudzetDomowy.DataAccess;
 using BudzetDomowy.DataAccess.CQRS;
+using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
@@ -22,6 +24,7 @@ builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddAutoMapper(typeof(ShopsProfile).Assembly);
 builder.Services.AddTransient<IQueryExecutor, QueryExecutor>();
 builder.Services.AddTransient<ICommandExecutor, CommandExecutor>();
+builder.Services.AddMvcCore().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<AddAccountRequestValidator>());
 
 var app = builder.Build();
 
