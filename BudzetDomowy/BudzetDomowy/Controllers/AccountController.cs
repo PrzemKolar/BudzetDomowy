@@ -21,6 +21,14 @@ namespace BudzetDomowy.Controllers
             return this.Ok(response);
         }
 
+        [HttpGet]
+        [Route("{AccountId}")]
+        public async Task<IActionResult> GetAccountById([FromRoute] int AccountId)
+        {
+            var response = await this.mediator.Send(new GetAccountByIdRequest() { AccountId = AccountId });
+            return this.Ok(response);
+        }
+
         [HttpPost]
         [Route("")]
         public async Task<IActionResult> AddAccount([FromBody] AddAccountRequest request)
