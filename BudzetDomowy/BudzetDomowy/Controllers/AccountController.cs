@@ -4,53 +4,46 @@ using BudzetDomowy.ApplicationServices.API.Domain.AccountRequestsResponses;
 
 namespace BudzetDomowy.Controllers
 {
-    public class AccountController : ControllerBase
+    public class AccountController : ApiControllerBase
     {
-        private IMediator mediator;
 
-        public AccountController(IMediator mediator)
+        public AccountController(IMediator mediator) : base(mediator)
         {
-            this.mediator = mediator;
         }
 
         [HttpGet]
         [Route("")]
-        public async Task<IActionResult> GetAllAcconts([FromQuery] GetAllAccountsRequest request)
+        public Task<IActionResult> GetAllAcconts([FromQuery] GetAllAccountsRequest request)
         {
-            var response = await this.mediator.Send(request);
-            return this.Ok(response);
+            return this.HandleRequest<GetAllAccountsRequest, GetAllAccountsResponse>(request);
         }
 
         [HttpGet]
         [Route("{AccountId}")]
-        public async Task<IActionResult> GetAccountById([FromRoute] int AccountId)
+        public Task<IActionResult> GetAccountById([FromRoute] int AccountId)
         {
-            var response = await this.mediator.Send(new GetAccountByIdRequest() { AccountId = AccountId });
-            return this.Ok(response);
+            return this.HandleRequest<GetAccountByIdRequest,GetAccountByIdResponse>(new GetAccountByIdRequest() { AccountId = AccountId });
         }
 
         [HttpPost]
         [Route("")]
-        public async Task<IActionResult> AddAccount([FromBody] AddAccountRequest request)
+        public Task<IActionResult> AddAccount([FromBody] AddAccountRequest request)
         {
-            var response = await this.mediator.Send(request);
-            return this.Ok(response);
+            return this.HandleRequest<AddAccountRequest, AddAccountResponse>(request);
         }
 
         [HttpPut]
         [Route("")]
-        public async Task<IActionResult> EditAccount([FromBody] EditAccountRequest request)
+        public Task<IActionResult> EditAccount([FromBody] EditAccountRequest request)
         {
-            var response = await this.mediator.Send(request);
-            return this.Ok(response);
+            return this.HandleRequest<EditAccountRequest, EditAccountResponse>(request);
         }
 
         [HttpPut]
         [Route("{AccountId}")]
-        public async Task<IActionResult> DisableAccount([FromRoute] int AccountId)
+        public Task<IActionResult> DisableAccount([FromRoute] int AccountId)
         {
-            var response = await this.mediator.Send(new DisableAccountRequest(){ AccountId = AccountId});
-            return this.Ok(response);
+            return this.HandleRequest<DisableAccountRequest, DisableAccountResponse>(new DisableAccountRequest(){ AccountId = AccountId});
         }
     }
 }

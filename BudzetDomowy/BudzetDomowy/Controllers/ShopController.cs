@@ -6,55 +6,46 @@ namespace BudzetDomowy.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ShopController : ControllerBase
+    public class ShopController : ApiControllerBase
     {
-        private readonly IMediator mediator;
 
-        public ShopController(IMediator mediator)
+        public ShopController(IMediator mediator) : base(mediator)
         {
-            this.mediator = mediator;
         }
 
         [HttpGet]
         [Route("")]
-        public async Task<IActionResult> GetAllShops([FromQuery]GetAllShopsRequest request)
+        public Task<IActionResult> GetAllShops([FromQuery]GetAllShopsRequest request)
         {
-            var response = await this.mediator.Send(request);
-            return this.Ok(response);
+            return this.HandleRequest<GetAllShopsRequest,GetAllShopsResponse>(request);
         }
 
         [HttpGet]
         [Route("{ShopId}")]
-        public async Task<IActionResult> GetShopById([FromRoute]int ShopId)
+        public Task<IActionResult> GetShopById([FromRoute]int ShopId)
         {
-            var request = new GetShopByIdRequest() { ShopId = ShopId };
-            var response = await this.mediator.Send(request);
-            return this.Ok(response);
+            return this.HandleRequest<GetShopByIdRequest, GetShopByIdResponse>(new GetShopByIdRequest() { ShopId = ShopId });
         }
 
         [HttpPost]
         [Route("")]
-        public async Task<IActionResult> AddShop([FromBody] AddShopRequest request)
+        public Task<IActionResult> AddShop([FromBody] AddShopRequest request)
         {
-            var response = await this.mediator.Send(request);
-            return this.Ok(response);
+            return this.HandleRequest<AddShopRequest, AddShopResponse>(request);
         }
 
         [HttpPut]
         [Route("")]
-        public async Task<IActionResult> EditShop([FromBody] EditShopRequest request)
+        public Task<IActionResult> EditShop([FromBody] EditShopRequest request)
         {
-            var response = await this.mediator.Send(request);
-            return this.Ok(response);
+            return this.HandleRequest<EditShopRequest, EditShopResponse>(request);
         }
 
         [HttpDelete]
         [Route("{ShopId}")]
-        public async Task<IActionResult> DeleteShop([FromRoute] int ShopId)
+        public Task<IActionResult> DeleteShop([FromRoute] int ShopId)
         {
-            var request = new DeleteShopRequest() { ShopId = ShopId };
-            var response = await this.mediator.Send(request);
-            return this.Ok(response);
+            return this.HandleRequest<DeleteShopRequest, DeleteShopResponse>(new DeleteShopRequest() { ShopId = ShopId });
         }
     }
 }
